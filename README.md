@@ -6,13 +6,21 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
 
 ## Fonctionnalités
 
-- Tester des URL individuellement ou à partir d'un fichier .txt contenant une liste d'URL.
-- Analyse des performances sur mobile et desktop.
-- Affichage des scores dans les catégories suivantes :
+- Analyse automatique des performances pour mobile et desktop.
+- Visualisation des scores dans les catégories suivantes :
   - Performance
   - Accessibilité
   - Meilleures Pratiques
   - SEO
+  - First Contentful Paint (FCP)
+  - Largest Contentful Paint (LCP)
+  - Total Blocking Time (TBT)
+  - Cumulative Layout Shift (CLS)
+  - Speed Index
+- Affichage des résultats avec un code couleur pour une interprétation rapide :
+  - **Vert** : Bon résultat.
+  - **Orange** : Moyen.
+  - **Rouge** : Doit être amélioré.
 
 ## Installation
 
