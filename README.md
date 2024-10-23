@@ -2,15 +2,6 @@
 
 LightHouse Test est un outil en ligne de commande permettant d'analyser la performance, l'accessibilité, les meilleures pratiques et le SEO des sites web en utilisant [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
-## Table des matières
-
-- [Fonctionnalités](#fonctionnalités)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Exemples](#exemples)
-- [Contributions](#contributions)
-- [Licence](#licence)
-
 ## Fonctionnalités
 
 - Tester des URL individuellement ou à partir d'un fichier .txt contenant une liste d'URL.
