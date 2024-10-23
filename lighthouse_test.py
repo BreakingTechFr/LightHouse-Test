@@ -34,7 +34,6 @@ def display_logo():
 |______||_| \__, ||_| |_| \__||_|  |_| \___/  \__,_||___/ \___|    |_|    \___||___/ \__|
              __/ |
             |___/                                                      by BreakingTech.fr
-
     """
     print(colored(logo, "red"))
 
