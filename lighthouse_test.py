@@ -96,7 +96,7 @@ def get_lighthouse_scores(url, strategy):
         command = ['lighthouse', url, '--only-categories=performance,accessibility,best-practices,seo', 
                    '--output=json', '--preset=desktop', '--quiet', '--chrome-flags="--headless"']
 
-    progress_bar = tqdm(total=100, desc="Analyse en cours", bar_format="{l_bar}{bar} [elapsed: {elapsed}, remaining: {remaining}]")
+    progress_bar = tqdm(total=100, desc="Analyse en cours", bar_format="{l_bar}{bar} [Temps écoulé: {elapsed}, Temps restant: {remaining}]")
 
     def update_progress_bar():
         while progress_bar.n < 100 and not stop_signal:
