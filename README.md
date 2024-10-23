@@ -29,6 +29,9 @@ Utilisation
 Clonez ce dépôt sur votre machine locale :
 ```shell
 git clone https://github.com/BreakingTechFr/LightHouse-Test.git
+```
+Se rendre dans le dossier d'installation :
+```shell
 cd lighthouse-test
 ```
 Installer les bibliothèques requises :
