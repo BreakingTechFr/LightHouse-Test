@@ -26,8 +26,9 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
 
 Avant d'exécuter ce script, assurez-vous d'avoir installé Node.js et Lighthouse. Vous pouvez installer Lighthouse en exécutant la commande suivante :
 
-```bash
+```shell
 npm install -g lighthouse
+```
 
 Prérequis
 Python 3.x
