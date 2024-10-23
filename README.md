@@ -58,35 +58,30 @@ Suivez les instructions affichées à l'écran pour tester des URL.
 
 ## Affichage des résultats
 
-- First Contentful Paint (FCP)
-Description : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
-Vert : 0 à 1.0 seconde
-Orange : 1.0 à 2.5 secondes
-Rouge : Plus de 2.5 secondes
+- First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
+  - Vert : 0 à 1.0 seconde
+  - Orange : 1.0 à 2.5 secondes
+  - Rouge : Plus de 2.5 secondes
 
-- Largest Contentful Paint (LCP)
-Description : Temps nécessaire pour que le plus grand élément de contenu visible soit rendu.
-Vert : 0 à 2.5 secondes
-Orange : 2.5 à 4.0 secondes
-Rouge : Plus de 4.0 secondes
+- Largest Contentful Paint (LCP) : Temps nécessaire pour que le plus grand élément de contenu visible soit rendu.
+  - Vert : 0 à 2.5 secondes
+  - Orange : 2.5 à 4.0 secondes
+  - Rouge : Plus de 4.0 secondes
 
-- Total Blocking Time (TBT)
-Description : Temps total pendant lequel la page est bloquée pour les interactions (c'est-à-dire que les utilisateurs ne peuvent pas interagir avec la page).
-Vert : 0 à 200 millisecondes
-Orange : 200 à 600 millisecondes
-Rouge : Plus de 600 millisecondes
+- Total Blocking Time (TBT) : Temps total pendant lequel la page est bloquée pour les interactions (c'est-à-dire que les utilisateurs ne peuvent pas interagir avec la page).
+  - Vert : 0 à 200 millisecondes
+  - Orange : 200 à 600 millisecondes
+  - Rouge : Plus de 600 millisecondes
 
-- umulative Layout Shift (CLS)
-Description : Mesure de la stabilité visuelle de la page. Un score faible indique moins de décalages de contenu inattendus.
-Vert : 0 à 0.1
-Orange : 0.1 à 0.25
-Rouge : Plus de 0.25
+- umulative Layout Shift (CLS) : Stabilité visuelle de la page. Un score faible indique moins de décalages de contenu inattendus.
+  - Vert : 0 à 0.1
+  - Orange : 0.1 à 0.25
+  - Rouge : Plus de 0.25
 
-- Speed Index
-Description : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
-Vert : 0 à 3.0 secondes
-Orange : 3.0 à 5.0 secondes
-Rouge : Plus de 5.0 secondes
+- Speed Index : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
+  - Vert : 0 à 3.0 secondes
+  - Orange : 3.0 à 5.0 secondes
+  - Rouge : Plus de 5.0 secondes
 
 ## Suivez-nous
 
