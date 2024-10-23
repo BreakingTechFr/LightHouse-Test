@@ -1,5 +1,7 @@
 # LightHouse Test
 
+![Capture d’écran 2024-10-23 à 02 55 18](https://github.com/user-attachments/assets/c2d36f3c-986e-40a3-a5a2-892a982b74ce)
+
 LightHouse Test est un outil en ligne de commande permettant d'analyser la performance, l'accessibilité, les meilleures pratiques et le SEO des sites web en utilisant [Lighthouse](https://developers.google.com/web/tools/lighthouse).
 
 ## Fonctionnalités
@@ -52,6 +54,8 @@ Pour utiliser un fichier .txt contenant des URL :
 ```shell
 Glissez-déposez ici un fichier .txt contenant les URL : urls.txt
 ```
+
+![Capture d’écran 2024-10-23 à 02 56 35](https://github.com/user-attachments/assets/dcd6d41e-4a31-4405-ba2e-ea918d8a4bc2)
 
 ## Suivez-nous
 
