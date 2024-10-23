@@ -32,19 +32,16 @@ npm install -g lighthouse
 
 Prérequis
 Python 3.x
-Les modules Python suivants :
-tqdm
-termcolor
-Vous pouvez installer les modules manquants avec pip :
 
-```shell
-pip install tqdm termcolor
-```
 Utilisation
 Clonez ce dépôt sur votre machine locale :
 ```shell
-git clone https://github.com/votre_nom_utilisateur/lighthouse-test.git
+git clone https://github.com/BreakingTechFr/LightHouse-Test.git
 cd lighthouse-test
+```
+Installer les bibliothèques requises :
+```shell
+pip install -r requirements.txt
 ```
 Exécutez le script :
 ```shell
