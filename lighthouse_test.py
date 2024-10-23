@@ -162,7 +162,7 @@ def display_scores(data_mobile, data_desktop):
         # Créer le tableau d'affichage pour Mobile
         print(colored("\nScores pour Mobile", "blue"))
         print(colored("+" + "-"*70 + "+", "cyan"))
-        print(colored("| {:<31} | {:<34} |".format("Critère", "Score"), "cyan"))
+        print(colored("| {:<31} | {:<34} |".format("Critères", "Scores"), "cyan"))
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Afficher tous les scores dans un seul tableau pour mobile
@@ -183,7 +183,7 @@ def display_scores(data_mobile, data_desktop):
         # Créer le tableau d'affichage pour Desktop
         print(colored("\nScores pour Desktop", "blue"))
         print(colored("+" + "-"*70 + "+", "cyan"))
-        print(colored("| {:<31} | {:<34} |".format("Critère", "Score"), "cyan"))
+        print(colored("| {:<31} | {:<34} |".format("Critères", "Scores"), "cyan"))
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Afficher tous les scores dans un seul tableau pour desktop
