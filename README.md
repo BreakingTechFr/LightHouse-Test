@@ -41,19 +41,6 @@ Exécutez le script :
 python lighthouse_test.py
 ```
 Suivez les instructions affichées à l'écran pour tester des URL.
-Menu Principal
-Tester une URL : Saisissez une URL commençant par http, https, ou www.
-Glissez-déposez un fichier .txt : Fournissez un fichier contenant une liste d'URL valides.
-Quitter le programme : Fermez l'application.
-Exemples
-Pour tester une seule URL :
-```shell
-Veuillez entrer l'URL (http, https ou www): https://example.com
-```
-Pour utiliser un fichier .txt contenant des URL :
-```shell
-Glissez-déposez ici un fichier .txt contenant les URL : urls.txt
-```
 
 ![Capture d’écran 2024-10-23 à 02 56 35](https://github.com/user-attachments/assets/dcd6d41e-4a31-4405-ba2e-ea918d8a4bc2)
 
