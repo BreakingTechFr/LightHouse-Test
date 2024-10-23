@@ -55,9 +55,11 @@ Suivez les instructions affichées à l'écran pour tester des URL.
 ## Affichage des résultats
 
 - Affichage des résultats avec un code couleur pour une interprétation rapide :
-  - **Vert** : Bon résultat.
-  - **Orange** : Moyen.
-  - **Rouge** : Doit être amélioré.
+  - 🟢 **Vert** : Bon résultat.
+  - 🟠 **Orange** : Moyen.
+  - 🔴 **Rouge** : Doit être amélioré.
+ 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
   - Vert : 0 à 1.0 seconde
