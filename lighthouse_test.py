@@ -64,6 +64,9 @@ def test_urls_from_file():
     print(colored("Glissez-déposez ici un fichier .txt contenant les URL :", "white"))
     file_path = input().strip()
 
+    # Remplacer les séquences \ avant des espaces par de simples espaces
+    file_path = file_path.replace("\\ ", " ")
+
     if not os.path.isfile(file_path):
         print(colored("Le fichier spécifié n'existe pas.", "red"))
         sys.exit(1)
