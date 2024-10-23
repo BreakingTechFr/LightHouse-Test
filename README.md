@@ -13,7 +13,6 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
   - Accessibilité
   - Meilleures Pratiques
   - SEO
-- Gestion des interruptions (KeyboardInterrupt) pour un arrêt propre.
 
 ## Installation
 
