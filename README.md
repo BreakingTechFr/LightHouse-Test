@@ -17,10 +17,6 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
   - Total Blocking Time (TBT)
   - Cumulative Layout Shift (CLS)
   - Speed Index
-- Affichage des résultats avec un code couleur pour une interprétation rapide :
-  - **Vert** : Bon résultat.
-  - **Orange** : Moyen.
-  - **Rouge** : Doit être amélioré.
 
 ## Installation
 
@@ -57,6 +53,11 @@ Suivez les instructions affichées à l'écran pour tester des URL.
 ![Capture d’écran 2024-10-23 à 18 03 43](https://github.com/user-attachments/assets/017dc2d5-2867-4329-9d5b-d1e869fc2f22)
 
 ## Affichage des résultats
+
+- Affichage des résultats avec un code couleur pour une interprétation rapide :
+  - **Vert** : Bon résultat.
+  - **Orange** : Moyen.
+  - **Rouge** : Doit être amélioré.
 
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
   - Vert : 0 à 1.0 seconde
