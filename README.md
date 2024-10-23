@@ -2,7 +2,7 @@
 
 ![Capture d’écran 2024-10-23 à 02 55 18](https://github.com/user-attachments/assets/c2d36f3c-986e-40a3-a5a2-892a982b74ce)
 
-LightHouse Test est un outil en ligne de commande permettant d'analyser la performance, l'accessibilité, les meilleures pratiques et le SEO des sites web en utilisant [Lighthouse](https://developers.google.com/web/tools/lighthouse).
+LightHouse Test est un outil en ligne de commande permettant d'analyser la performance, l'accessibilité, les meilleures pratiques et le SEO des sites web en utilisant Lighthouse.
 
 ## Fonctionnalités
 
@@ -16,7 +16,7 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
 
 ## Installation
 
-Avant d'exécuter ce script, assurez-vous d'avoir installé [Node.js](https://nodejs.org/) et Lighthouse. Vous pouvez installer Lighthouse en exécutant la commande suivante :
+Avant d'exécuter ce script, assurez-vous d'avoir installé [Node.js](https://nodejs.org/) et [Lighthouse](https://developers.google.com/web/tools/lighthouse). Vous pouvez installer Lighthouse en exécutant la commande suivante :
 
 ```shell
 npm install -g lighthouse
