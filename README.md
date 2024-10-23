@@ -48,7 +48,7 @@ cd lighthouse-test
 ```
 Exécutez le script :
 ```shell
-python votre_script.py
+python lighthouse_test.py
 ```
 Suivez les instructions affichées à l'écran pour tester des URL.
 Menu Principal
