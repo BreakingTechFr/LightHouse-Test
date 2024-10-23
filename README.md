@@ -46,7 +46,7 @@ python lighthouse_test.py
 ```
 Suivez les instructions affichées à l'écran pour tester des URL.
 
-![Capture d’écran 2024-10-23 à 02 56 35](https://github.com/user-attachments/assets/dcd6d41e-4a31-4405-ba2e-ea918d8a4bc2)
+![Capture d’écran 2024-10-23 à 18 03 43](https://github.com/user-attachments/assets/017dc2d5-2867-4329-9d5b-d1e869fc2f22)
 
 ## Suivez-nous
 
