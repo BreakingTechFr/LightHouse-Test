@@ -66,7 +66,11 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
  
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
+<<<<<<< HEAD
 ##Scores pour Desktop
+=======
+## Scores pour Desktop
+>>>>>>> c4a244372e48a9b9f946483aefe217732b67839d
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
   - Vert : 0 à 0.94 seconde
   - Orange : 0.95 à 1.6 secondes
@@ -92,7 +96,11 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
   - Orange : 1.33 à 2.31 secondes
   - Rouge : Plus de 5.0 secondes
 
+<<<<<<< HEAD
 ##Scores pour Mobile
+=======
+## Scores pour Mobile
+>>>>>>> c4a244372e48a9b9f946483aefe217732b67839d
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
   - Vert : 0 à 1.82 seconde
   - Orange : 1.83 à 3.01 secondes
