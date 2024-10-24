@@ -90,7 +90,7 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 - Speed Index : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
   - Vert : 0 à 1.32 secondes
   - Orange : 1.33 à 2.31 secondes
-  - Rouge : Plus de 5.0 secondes
+  - Rouge : Plus de 2.31 secondes
 
 ## Scores pour Mobile
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
