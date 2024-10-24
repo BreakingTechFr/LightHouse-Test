@@ -4,8 +4,11 @@ import sys
 import signal
 import time
 from tqdm import tqdm
+from datetime import datetime
 from termcolor import colored
 import threading
+from openpyxl import Workbook
+from openpyxl.styles import PatternFill, Alignment, Font, Border, Side
 
 # Fonction pour effacer le terminal
 def clear_terminal():
@@ -43,14 +46,13 @@ def menu():
     print("1. Tester une URL commençant par http, https ou www.")
     print("2. Glissez-déposez un fichier .txt contenant une liste d'URLs")
     print("3. Quitter le programme")
-    choice = input(colored("\nFaites votre choix (1, 2 ou 3): ", "green")).strip()
+    choice = input(colored("\nFaites votre choix (1, 2 ou 3): ", "yellow")).strip()
     return choice
 
 # Fonction pour tester une seule URL
 def test_single_url():
     url = input(colored("Veuillez entrer l'URL (http, https ou www): ", "yellow")).strip()  # Changement en jaune
-    if not (url.startswith(('http://', 'https://', 'www.')) or 
-            url.endswith('nicovip.com')):
+    if not (url.startswith(('http://', 'https://', 'www.'))):
         print(colored("L'URL doit commencer par http, https, ou www.", "red"))
         sys.exit(1)
     
@@ -72,8 +74,7 @@ def test_urls_from_file():
         sys.exit(1)
 
     with open(file_path, 'r') as file:
-        urls = [line.strip() for line in file if line.strip().startswith(('http://', 'https://', 'www.')) or
-                line.strip() == 'nicovip.com']
+        urls = [line.strip() for line in file if line.strip().startswith(('http://', 'https://', 'www.'))]
     
     if not urls:
         print(colored("Aucune URL valide trouvée dans le fichier.", "red"))
@@ -116,50 +117,97 @@ def get_lighthouse_scores(url, strategy):
     if result.returncode != 0:
         print(colored(f"Erreur lors de l'analyse de {url}", "red"))
         return None
-    return result.stdout
+    return result.stdout  # Retourner la sortie JSON
 
 # Fonction pour extraire et afficher les scores sous forme de tableau
-def display_scores(data_mobile, data_desktop):
+def display_scores(data_results):
     import json
     try:
-        json_data_mobile = json.loads(data_mobile)
-        json_data_desktop = json.loads(data_desktop)
-
-        # Scores mobile
-        categories_mobile = json_data_mobile['categories']
-        scores_mobile = {
-            "Performance": int(categories_mobile['performance']['score'] * 100),
-            "Accessibility": int(categories_mobile['accessibility']['score'] * 100),
-            "Best Practices": int(categories_mobile['best-practices']['score'] * 100),
-            "SEO": int(categories_mobile['seo']['score'] * 100)
+        data = {
+            'URL': [],
+            'Stratégie': [],
+            'FCP (s)': [],
+            'LCP (s)': [],
+            'TBT (ms)': [],
+            'CLS': [],
+            'Speed Index (s)': [],
+            'Performance Score': [],
+            'Accessibility Score': [],
+            'Best Practices Score': [],
+            'SEO Score': []
         }
 
-        # Extraire les scores de performance mobile
-        audits_mobile = json_data_mobile['audits']
-        fcp_mobile = audits_mobile['first-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
-        lcp_mobile = audits_mobile['largest-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
-        tbt_mobile = audits_mobile['total-blocking-time']['numericValue']  # En millisecondes
-        cls_mobile = audits_mobile['cumulative-layout-shift']['numericValue']  # Score CLS
-        speed_index_mobile = audits_mobile['speed-index']['numericValue'] / 1000  # Conversion en secondes
+        for result in data_results:
+            url = result['url']
+            mobile_data = result['mobile_data']
+            desktop_data = result['desktop_data']
 
-        # Scores desktop
-        categories_desktop = json_data_desktop['categories']
-        scores_desktop = {
-            "Performance": int(categories_desktop['performance']['score'] * 100),
-            "Accessibility": int(categories_desktop['accessibility']['score'] * 100),
-            "Best Practices": int(categories_desktop['best-practices']['score'] * 100),
-            "SEO": int(categories_desktop['seo']['score'] * 100)
-        }
+            # Scores mobile
+            json_data_mobile = json.loads(mobile_data)
+            categories_mobile = json_data_mobile['categories']
+            scores_mobile = {
+                "Performance": int(categories_mobile['performance']['score'] * 100),
+                "Accessibility": int(categories_mobile['accessibility']['score'] * 100),
+                "Best Practices": int(categories_mobile['best-practices']['score'] * 100),
+                "SEO": int(categories_mobile['seo']['score'] * 100)
+            }
 
-        # Extraire les scores de performance desktop
-        audits_desktop = json_data_desktop['audits']
-        fcp_desktop = audits_desktop['first-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
-        lcp_desktop = audits_desktop['largest-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
-        tbt_desktop = audits_desktop['total-blocking-time']['numericValue']  # En millisecondes
-        cls_desktop = audits_desktop['cumulative-layout-shift']['numericValue']  # Score CLS
-        speed_index_desktop = audits_desktop['speed-index']['numericValue'] / 1000  # Conversion en secondes
+            # Extraire les scores de performance mobile
+            audits_mobile = json_data_mobile['audits']
+            fcp_mobile = audits_mobile['first-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
+            lcp_mobile = audits_mobile['largest-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
+            tbt_mobile = audits_mobile['total-blocking-time']['numericValue']  # En millisecondes
+            cls_mobile = float(audits_mobile['cumulative-layout-shift']['numericValue'])  # Conversion en float
+            speed_index_mobile = audits_mobile['speed-index']['numericValue'] / 1000  # Conversion en secondes
 
-        # Créer le tableau d'affichage pour Mobile
+            # Scores desktop
+            json_data_desktop = json.loads(desktop_data)
+            categories_desktop = json_data_desktop['categories']
+            scores_desktop = {
+                "Performance": int(categories_desktop['performance']['score'] * 100),
+                "Accessibility": int(categories_desktop['accessibility']['score'] * 100),
+                "Best Practices": int(categories_desktop['best-practices']['score'] * 100),
+                "SEO": int(categories_desktop['seo']['score'] * 100)
+            }
+
+            # Extraire les scores de performance desktop
+            audits_desktop = json_data_desktop['audits']
+            fcp_desktop = audits_desktop['first-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
+            lcp_desktop = audits_desktop['largest-contentful-paint']['numericValue'] / 1000  # Conversion en secondes
+            tbt_desktop = audits_desktop['total-blocking-time']['numericValue']  # En millisecondes
+            cls_desktop = float(audits_desktop['cumulative-layout-shift']['numericValue'])  # Conversion en float
+            speed_index_desktop = audits_desktop['speed-index']['numericValue'] / 1000  # Conversion en secondes
+
+            # Ajout des données au tableau
+            data['URL'].append(url)
+            data['Stratégie'].append("Mobile")
+            data['FCP (s)'].append(fcp_mobile)
+            data['LCP (s)'].append(lcp_mobile)
+            data['TBT (ms)'].append(tbt_mobile)
+            data['CLS'].append(cls_mobile)  # Ajout direct de la valeur float
+            data['Speed Index (s)'].append(speed_index_mobile)
+            data['Performance Score'].append(scores_mobile['Performance'])
+            data['Accessibility Score'].append(scores_mobile['Accessibility'])
+            data['Best Practices Score'].append(scores_mobile['Best Practices'])
+            data['SEO Score'].append(scores_mobile['SEO'])
+
+            # Ajout des données desktop
+            data['URL'].append(url)
+            data['Stratégie'].append("Desktop")
+            data['FCP (s)'].append(fcp_desktop)
+            data['LCP (s)'].append(lcp_desktop)
+            data['TBT (ms)'].append(tbt_desktop)
+            data['CLS'].append(cls_desktop)  # Ajout direct de la valeur float
+            data['Speed Index (s)'].append(speed_index_desktop)
+            data['Performance Score'].append(scores_desktop['Performance'])
+            data['Accessibility Score'].append(scores_desktop['Accessibility'])
+            data['Best Practices Score'].append(scores_desktop['Best Practices'])
+            data['SEO Score'].append(scores_desktop['SEO'])
+
+        # Exportation des résultats vers Excel
+        export_to_excel(data)
+
+         # Créer le tableau d'affichage pour Mobile
         print(colored("\nScores pour Mobile", "blue"))
         print(colored("+" + "-"*70 + "+", "cyan"))
         print(colored("| {:<31} | {:<34} |".format("Critères", "Scores"), "cyan"))
@@ -173,11 +221,11 @@ def display_scores(data_mobile, data_desktop):
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Afficher les scores de performance mobile dans le même tableau
-        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_mobile:.1f}s', 'green' if fcp_mobile <= 1.0 else 'yellow' if fcp_mobile <= 2.5 else 'red'):<43} |")
-        print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_mobile:.1f}s', 'green' if lcp_mobile <= 2.5 else 'red'):<43} |")
-        print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_mobile:.4f}ms', 'green' if tbt_mobile <= 300 else 'yellow' if tbt_mobile <= 600 else 'red'):<43} |")
-        print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(f'{cls_mobile:.4f}' if cls_mobile > 0 else '0', 'green' if cls_mobile <= 0.1 else 'orange' if cls_mobile <= 0.25 else 'red'):<43} |")
-        print(f"| {colored('Speed Index', 'white'):<40} | {colored(f'{speed_index_mobile:.1f}s', 'green' if speed_index_mobile <= 1.0 else 'yellow' if speed_index_mobile <= 2.5 else 'red'):<43} |")
+        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_mobile:.1f}s' if fcp_mobile % 1 else f'{int(fcp_mobile)}s', 'green' if fcp_mobile <= 1.82 else 'yellow' if fcp_mobile <= 3.01 else 'red'):<43} |")
+        print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_mobile:.1f}s' if lcp_mobile % 1 else f'{int(lcp_mobile)}s', 'green' if lcp_mobile <= 2.52 else 'yellow' if lcp_mobile <= 4.01 else 'red'):<43} |")
+        print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_mobile:.1f}ms' if tbt_mobile % 1 else f'{int(tbt_mobile)}ms', 'green' if tbt_mobile <= 200 else 'yellow' if tbt_mobile <= 600 else 'red'):<43} |")
+        print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(f'{cls_mobile:.4f}' if cls_mobile % 1 else f'{int(cls_mobile)}', 'green' if cls_mobile <= 0.1 else 'orange' if cls_mobile <= 0.25 else 'red'):<43} |")
+        print(f"| {colored('Speed Index', 'white'):<40} | {colored(f'{speed_index_mobile:.1f}s' if speed_index_mobile % 1 else f'{int(speed_index_mobile)}s', 'green' if speed_index_mobile <= 3.42 else 'yellow' if speed_index_mobile <= 5.82 else 'red'):<43} |")
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Créer le tableau d'affichage pour Desktop
@@ -194,43 +242,207 @@ def display_scores(data_mobile, data_desktop):
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Afficher les scores de performance desktop dans le même tableau
-        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_desktop:.1f}s', 'green' if fcp_desktop <= 1.0 else 'yellow' if fcp_desktop <= 2.5 else 'red'):<43} |")
-        print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_desktop:.1f}s', 'green' if lcp_desktop <= 2.5 else 'red'):<43} |")
-        print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_desktop:.4f}ms', 'green' if tbt_desktop <= 300 else 'yellow' if tbt_desktop <= 600 else 'red'):<43} |")
-        print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(f'{cls_desktop:.4f}' if cls_desktop > 0 else '0', 'green' if cls_desktop <= 0.1 else 'orange' if cls_desktop <= 0.25 else 'red'):<43} |")
-        print(f"| {colored('Speed Index', 'white'):<40} | {colored(f'{speed_index_desktop:.1f}s', 'green' if speed_index_desktop <= 1.0 else 'yellow' if speed_index_desktop <= 2.5 else 'red'):<43} |")
+        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_desktop:.1f}s' if fcp_desktop % 1 else f'{int(fcp_desktop)}s', 'green' if fcp_desktop <= 0.94 else 'yellow' if fcp_desktop <= 1.6 else 'red'):<43} |")
+        print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_desktop:.1f}s' if lcp_desktop % 1 else f'{int(lcp_desktop)}s', 'green' if lcp_desktop <= 1.21 else 'yellow' if lcp_desktop <= 2.41 else 'red'):<43} |")
+        print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_desktop:.1f}ms' if tbt_desktop % 1 else f'{int(tbt_desktop)}ms', 'green' if tbt_desktop <= 150 else 'yellow' if tbt_desktop <= 350 else 'red'):<43} |")
+        print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(f'{cls_desktop:.4f}' if cls_desktop % 1 else f'{int(cls_desktop)}', 'green' if cls_desktop <= 0.1 else 'orange' if cls_desktop <= 0.25 else 'red'):<43} |")
+        print(f"| {colored('Speed Index', 'white'):<40} | {colored(f'{speed_index_desktop:.1f}s' if speed_index_desktop % 1 else f'{int(speed_index_desktop)}s', 'green' if speed_index_desktop <= 1.32 else 'yellow' if speed_index_desktop <= 2.31 else 'red'):<43} |")
         print(colored("+" + "-"*70 + "+", "cyan"))
 
     except json.JSONDecodeError:
         print(colored("Erreur lors de l'analyse des données de Lighthouse.", "red"))
 
-# Fonction principale pour exécuter le programme
+# Fonction pour définir la couleur de remplissage
+def set_fill_color(header, score, device_type):
+    # Logique pour définir les couleurs de remplissage selon le type d'appareil et le score
+    if header in ["FCP (s)", "LCP (s)", "TBT (ms)", "Speed Index (s)", "CLS"]:
+        if device_type == "mobile":
+            if header == 'FCP (s)':
+                if score <= 1.0:
+                    return '5ED050'  # Vert
+                elif score <= 2.5:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'LCP (s)':
+                if score <= 2.5:
+                    return '5ED050'  # Vert
+                elif score <= 4:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'TBT (ms)':
+                if score <= 200:
+                    return '5ED050'  # Vert
+                elif score <= 600:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'Speed Index (s)':
+                if score <= 3:
+                    return '5ED050'  # Vert
+                elif score <= 5:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'CLS':
+                if score <= 0.1:
+                    return '5ED050'  # Vert
+                elif score <= 0.25:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+        elif device_type == "desktop":
+            # Logique pour desktop...
+            if header == 'FCP (s)':
+                if score <= 0.8:
+                    return '5ED050'  # Vert
+                elif score <= 2.0:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'LCP (s)':
+                if score <= 2.0:
+                    return '5ED050'  # Vert
+                elif score <= 3.0:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'TBT (ms)':
+                if score <= 150:
+                    return '5ED050'  # Vert
+                elif score <= 400:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'Speed Index (s)':
+                if score <= 2.5:
+                    return '5ED050'  # Vert
+                elif score <= 4.5:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+            elif header == 'CLS':
+                if score <= 0.1:
+                    return '5ED050'  # Vert
+                elif score <= 0.25:
+                    return 'FFF055'  # Jaune
+                else:
+                    return 'FF0000'  # Rouge
+    return None
+
+def export_to_excel(data):
+    # Création d'un nouveau classeur Excel
+    workbook = Workbook()
+    sheet = workbook.active
+
+    # Remplissage des en-têtes
+    headers = list(data.keys())  # Convertir les clés en liste
+    sheet.append(headers)
+
+    # Appliquer la mise en forme en gras, l'alignement centré et le contour noir aux en-têtes
+    for col_idx, header in enumerate(headers, start=1):
+        cell = sheet.cell(row=1, column=col_idx)
+        cell.font = Font(bold=True)  # Mettre en gras
+        cell.alignment = Alignment(horizontal='center')  # Centrer l'alignement
+        cell.border = Border(left=Side(style='thin', color='000000'),
+                             right=Side(style='thin', color='000000'),
+                             top=Side(style='thin', color='000000'),
+                             bottom=Side(style='thin', color='000000'))  # Contour noir
+
+    # Remplissage des données
+    for i in range(len(data['URL'])):
+        row = [data[header][i] for header in headers]
+        sheet.append(row)
+
+        # Appliquer la couleur de fond et l'alignement selon les scores
+        for col_idx, header in enumerate(headers):
+            score = data[header][i]
+            fill_color = None
+            
+            # Appliquer les couleurs de fond en fonction des scores
+            if "Score" in header:
+                if score >= 90:
+                    fill_color = '5ED050'  # Vert
+                elif score >= 50:
+                    fill_color = 'FFF055'  # Jaune
+                else:
+                    fill_color = 'FF0000'  # Rouge
+            else:
+                # Utiliser la fonction set_fill_color pour les autres scores
+                device_type = "mobile"  # ou "desktop", selon votre logique
+                fill_color = set_fill_color(header, score, device_type)
+
+            # Appliquer le remplissage
+            cell = sheet.cell(row=i + 2, column=col_idx + 1)
+            if fill_color:
+                # Ajouter "FF" au début pour l'opacité
+                fill = PatternFill(start_color='FF' + fill_color, end_color='FF' + fill_color, fill_type="solid")
+                cell.fill = fill  # +2 pour tenir compte de l'en-tête
+
+            # Appliquer l'alignement
+            alignment = Alignment(horizontal='center')
+            if header != "URL":  # Exclure la colonne des URLs
+                cell.alignment = alignment
+
+            # Appliquer le contour noir si la cellule contient du contenu
+            if cell.value is not None:
+                cell.border = Border(left=Side(style='thin', color='000000'),
+                                     right=Side(style='thin', color='000000'),
+                                     top=Side(style='thin', color='000000'),
+                                     bottom=Side(style='thin', color='000000'))
+
+    # Ajuster la largeur des colonnes
+    for column in sheet.columns:
+        max_length = 0
+        column_letter = column[0].column_letter  # Obtenir la lettre de la colonne
+        for cell in column:
+            try:
+                if len(str(cell.value)) > max_length:
+                    max_length = len(str(cell.value))
+            except:
+                pass
+        adjusted_width = (max_length + 2)  # Ajouter un peu d'espace
+        sheet.column_dimensions[column_letter].width = adjusted_width
+
+    # Sauvegarde du fichier Excel
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format : AAAAMMJJ_HHMMSS
+    filename = f'rapport_performance_{timestamp}.xlsx'
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    full_path = os.path.join(script_directory, filename)
+    workbook.save(full_path)
+    print(colored(f"\nLes scores ont été exportés vers '{filename}'", "green"))
+
+# Fonction principale du programme
 def main():
     clear_terminal()
     display_logo()
 
     while True:
         choice = menu()
-        if choice == '1':
+        if choice == "1":
             urls = test_single_url()
-            for url in urls:
-                mobile_data = get_lighthouse_scores(url, "mobile")
-                desktop_data = get_lighthouse_scores(url, "desktop")
-                if mobile_data and desktop_data:
-                    display_scores(mobile_data, desktop_data)
-        elif choice == '2':
+        elif choice == "2":
             urls = test_urls_from_file()
-            for url in urls:
-                mobile_data = get_lighthouse_scores(url, "mobile")
-                desktop_data = get_lighthouse_scores(url, "desktop")
-                if mobile_data and desktop_data:
-                    display_scores(mobile_data, desktop_data)
-        elif choice == '3':
+        elif choice == "3":
             print(colored("Merci d'avoir utilisé LightHouse Test", "white"))
-            break
+            sys.exit(0)
         else:
-            print(colored("Choix invalide, veuillez réessayer.", "red"))
+            print(colored("Choix invalide. Veuillez réessayer.", "red"))
+            continue
+        
+        data_results = []
+        for url in urls:
+            mobile_result = get_lighthouse_scores(url, "mobile")
+            desktop_result = get_lighthouse_scores(url, "desktop")
+            if mobile_result and desktop_result:
+                data_results.append({
+                    'url': url,
+                    'mobile_data': mobile_result,
+                    'desktop_data': desktop_result
+                })
+        
+        display_scores(data_results)
 
-# Point d'entrée du programme
 if __name__ == "__main__":
     main()
