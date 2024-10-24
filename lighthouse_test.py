@@ -242,7 +242,7 @@ def display_scores(data_results):
         print(colored("+" + "-"*70 + "+", "cyan"))
 
         # Afficher les scores de performance desktop dans le même tableau
-        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_desktop:.1f}s' if fcp_desktop % 1 else f'{int(fcp_desktop)}s', 'green' if fcp_desktop <= 0.94 else 'yellow' if fcp_desktop <= 1.6 else 'red'):<43} |")
+        print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_desktop:.1f}s' if fcp_desktop % 1 else f'{int(fcp_desktop)}s', 'green' if fcp_desktop <=2.31 else 'red'):<43} |")
         print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_desktop:.1f}s' if lcp_desktop % 1 else f'{int(lcp_desktop)}s', 'green' if lcp_desktop <= 1.21 else 'yellow' if lcp_desktop <= 2.41 else 'red'):<43} |")
         print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_desktop:.1f}ms' if tbt_desktop % 1 else f'{int(tbt_desktop)}ms', 'green' if tbt_desktop <= 150 else 'yellow' if tbt_desktop <= 350 else 'red'):<43} |")
         print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(f'{cls_desktop:.4f}' if cls_desktop % 1 else f'{int(cls_desktop)}', 'green' if cls_desktop <= 0.1 else 'orange' if cls_desktop <= 0.25 else 'red'):<43} |")
@@ -258,16 +258,16 @@ def set_fill_color(header, score, device_type):
     if header in ["FCP (s)", "LCP (s)", "TBT (ms)", "Speed Index (s)", "CLS"]:
         if device_type == "mobile":
             if header == 'FCP (s)':
-                if score <= 1.0:
+                if score <= 1.82:
                     return '5ED050'  # Vert
-                elif score <= 2.5:
+                elif score <= 3.01:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
             elif header == 'LCP (s)':
-                if score <= 2.5:
+                if score <= 2.52:
                     return '5ED050'  # Vert
-                elif score <= 4:
+                elif score <= 4.01:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
@@ -279,9 +279,9 @@ def set_fill_color(header, score, device_type):
                 else:
                     return 'FF0000'  # Rouge
             elif header == 'Speed Index (s)':
-                if score <= 3:
+                if score <= 3.42:
                     return '5ED050'  # Vert
-                elif score <= 5:
+                elif score <= 5.82:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
@@ -295,30 +295,30 @@ def set_fill_color(header, score, device_type):
         elif device_type == "desktop":
             # Logique pour desktop...
             if header == 'FCP (s)':
-                if score <= 0.8:
+                if score <= 0.94:
                     return '5ED050'  # Vert
-                elif score <= 2.0:
+                elif score <= 1.6:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
             elif header == 'LCP (s)':
-                if score <= 2.0:
+                if score <= 1.21:
                     return '5ED050'  # Vert
-                elif score <= 3.0:
+                elif score <= 2.41:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
             elif header == 'TBT (ms)':
                 if score <= 150:
                     return '5ED050'  # Vert
-                elif score <= 400:
+                elif score <= 350:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
             elif header == 'Speed Index (s)':
-                if score <= 2.5:
+                if score <= 1.32:
                     return '5ED050'  # Vert
-                elif score <= 4.5:
+                elif score <= 2.31:
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
