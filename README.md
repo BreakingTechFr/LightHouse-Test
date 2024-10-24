@@ -17,6 +17,7 @@ LightHouse Test est un outil en ligne de commande permettant d'analyser la perfo
   - Total Blocking Time (TBT)
   - Cumulative Layout Shift (CLS)
   - Speed Index
+- Export des données sous forme de tableau excel .xlsx
 
 ## Installation
 
@@ -51,6 +52,10 @@ python lighthouse_test.py
 Suivez les instructions affichées à l'écran pour tester des URL.
 
 ![Capture d’écran 2024-10-23 à 18 03 43](https://github.com/user-attachments/assets/017dc2d5-2867-4329-9d5b-d1e869fc2f22)
+
+Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
+
+![Capture d’écran 2024-10-24 à 21 37 54](https://github.com/user-attachments/assets/37351763-7056-4c2b-9a90-f47e394d9e01)
 
 ## Affichage des résultats
 
