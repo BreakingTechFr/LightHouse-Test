@@ -329,7 +329,7 @@ def set_fill_color(header, score, device_type):
                     return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
-    return None
+    return None 
 
 def export_to_excel(data):
     # Création d'un nouveau classeur Excel
