@@ -66,29 +66,56 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
  
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 
+##Scores pour Desktop
 - First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
-  - Vert : 0 à 1.0 seconde
-  - Orange : 1.0 à 2.5 secondes
+  - Vert : 0 à 0.94 seconde
+  - Orange : 0.95 à 1.6 secondes
   - Rouge : Plus de 2.5 secondes
 
 - Largest Contentful Paint (LCP) : Temps nécessaire pour que le plus grand élément de contenu visible soit rendu.
-  - Vert : 0 à 2.5 secondes
-  - Orange : 2.5 à 4.0 secondes
-  - Rouge : Plus de 4.0 secondes
+  - Vert : 0 à 1.21 secondes
+  - Orange : 1.22 à 2.41 secondes
+  - Rouge : Plus de 2.41 secondes
+
+- Total Blocking Time (TBT) : Temps total pendant lequel la page est bloquée pour les interactions (c'est-à-dire que les utilisateurs ne peuvent pas interagir avec la page).
+  - Vert : 0 à 150 millisecondes
+  - Orange : 151 à 350 millisecondes
+  - Rouge : Plus de 350 millisecondes
+
+- umulative Layout Shift (CLS) : Stabilité visuelle de la page. Un score faible indique moins de décalages de contenu inattendus.
+  - Vert : 0 à 0.1
+  - Orange : 0.11 à 0.25
+  - Rouge : Plus de 0.25
+
+- Speed Index : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
+  - Vert : 0 à 1.32 secondes
+  - Orange : 1.33 à 2.31 secondes
+  - Rouge : Plus de 5.0 secondes
+
+##Scores pour Mobile
+- First Contentful Paint (FCP) : Temps nécessaire pour que le premier élément de contenu soit rendu sur la page.
+  - Vert : 0 à 1.82 seconde
+  - Orange : 1.83 à 3.01 secondes
+  - Rouge : Plus de 3.01 secondes
+
+- Largest Contentful Paint (LCP) : Temps nécessaire pour que le plus grand élément de contenu visible soit rendu.
+  - Vert : 0 à 2.52 secondes
+  - Orange : 2.53 à 4.01 secondes
+  - Rouge : Plus de 4.01 secondes
 
 - Total Blocking Time (TBT) : Temps total pendant lequel la page est bloquée pour les interactions (c'est-à-dire que les utilisateurs ne peuvent pas interagir avec la page).
   - Vert : 0 à 200 millisecondes
-  - Orange : 200 à 600 millisecondes
+  - Orange : 201 à 600 millisecondes
   - Rouge : Plus de 600 millisecondes
 
 - umulative Layout Shift (CLS) : Stabilité visuelle de la page. Un score faible indique moins de décalages de contenu inattendus.
   - Vert : 0 à 0.1
-  - Orange : 0.1 à 0.25
+  - Orange : 0.11 à 0.25
   - Rouge : Plus de 0.25
 
 - Speed Index : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
-  - Vert : 0 à 3.0 secondes
-  - Orange : 3.0 à 5.0 secondes
+  - Vert : 0 à 3.42 secondes
+  - Orange : 3.43 à 5.82 secondes
   - Rouge : Plus de 5.0 secondes
 
 ## Suivez-nous
