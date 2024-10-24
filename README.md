@@ -116,7 +116,7 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 - Speed Index : Mesure de la rapidité à laquelle le contenu est visible pour l'utilisateur.
   - Vert : 0 à 3.42 secondes
   - Orange : 3.43 à 5.82 secondes
-  - Rouge : Plus de 5.0 secondes
+  - Rouge : Plus de 5.82 secondes
 
 ## Suivez-nous
 
