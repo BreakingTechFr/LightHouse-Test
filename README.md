@@ -1,6 +1,6 @@
 # LightHouse Test
 
-![Capture d’écran 2024-10-23 à 02 55 18](https://github.com/user-attachments/assets/c2d36f3c-986e-40a3-a5a2-892a982b74ce)
+![Capture d’écran 2024-10-25 à 16 09 30](https://github.com/user-attachments/assets/ac77dd3c-8578-4c2e-8cea-242546768548)
 
 LightHouse Test est un outil en ligne de commande permettant d'analyser la performance, l'accessibilité, les meilleures pratiques et le SEO des sites web en utilisant Lighthouse.
 
@@ -51,11 +51,11 @@ python lighthouse_test.py
 ```
 Suivez les instructions affichées à l'écran pour tester des URL.
 
-![Capture d’écran 2024-10-23 à 18 03 43](https://github.com/user-attachments/assets/017dc2d5-2867-4329-9d5b-d1e869fc2f22)
+![Capture d’écran 2024-10-25 à 16 12 53](https://github.com/user-attachments/assets/25b5b14b-c69c-48a4-9320-e050974f66dc)
 
 Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 
-![Capture d’écran 2024-10-24 à 21 37 54](https://github.com/user-attachments/assets/37351763-7056-4c2b-9a90-f47e394d9e01)
+![Capture d’écran 2024-10-25 à 16 13 19](https://github.com/user-attachments/assets/b073752c-1ada-4f25-910a-96917bdb4959)
 
 ## Affichage des résultats
 
