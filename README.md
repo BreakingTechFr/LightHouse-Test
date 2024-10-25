@@ -51,11 +51,11 @@ python lighthouse_test.py
 ```
 Suivez les instructions affichées à l'écran pour tester des URL.
 
-![Capture d’écran 2024-10-25 à 16 12 53](https://github.com/user-attachments/assets/25b5b14b-c69c-48a4-9320-e050974f66dc)
+![Capture d’écran 2024-10-25 à 17 54 54](https://github.com/user-attachments/assets/17beb7e3-07ac-4746-a94e-62a8629cd641)
 
 Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 
-![Capture d’écran 2024-10-25 à 16 13 19](https://github.com/user-attachments/assets/b073752c-1ada-4f25-910a-96917bdb4959)
+![Capture d’écran 2024-10-25 à 17 55 30](https://github.com/user-attachments/assets/6a96badf-09a7-42ff-bac2-92f47c610ca3)
 
 ## Affichage des résultats
 
