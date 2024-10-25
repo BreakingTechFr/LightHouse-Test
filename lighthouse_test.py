@@ -279,7 +279,16 @@ def display_scores(data_results):
 
 # Fonction pour définir la couleur de remplissage
 def set_fill_color(header, score, device_type):
-    # Logique pour définir les couleurs de remplissage selon le type d'appareil et le score
+    # Convertir en float si score est une chaîne de caractères
+    try:
+        score = float(score)
+    except ValueError:
+        # Si la conversion échoue, laisser score tel quel
+        return None
+
+    # Normalisation des valeurs flottantes avec un arrondi à une décimale
+    score = round(score, 1)
+
     if header in ["FCP (s)", "LCP (s)", "TBT (ms)", "Speed Index (s)", "CLS"]:
         if device_type == "mobile":
             if header == 'FCP (s)':
@@ -314,11 +323,10 @@ def set_fill_color(header, score, device_type):
                 if score <= 0.1:
                     return '5ED050'  # Vert
                 elif score <= 0.25:
-                    return 'FFF055'  # Jaune
+                    return 'FFA500'  # Orange
                 else:
                     return 'FF0000'  # Rouge
         elif device_type == "desktop":
-            # Logique pour desktop...
             if header == 'FCP (s)':
                 if score <= 0.94:
                     return '5ED050'  # Vert
@@ -351,10 +359,11 @@ def set_fill_color(header, score, device_type):
                 if score <= 0.1:
                     return '5ED050'  # Vert
                 elif score <= 0.25:
-                    return 'FFF055'  # Jaune
+                    return 'FFA500'  # Orange
                 else:
                     return 'FF0000'  # Rouge
     return None
+
 
 def export_to_excel(data):
     # Création d'un nouveau classeur Excel
@@ -388,18 +397,21 @@ def export_to_excel(data):
         row = [data[header][i] for header in headers]
         sheet.append(row)
 
+        # Récupérer device_type en fonction de la colonne "Stratégie"
+        device_type = "mobile" if data["Stratégie"][i] == "Mobile" else "desktop"
+
         # Appliquer la couleur de fond et l'alignement selon les scores
         for col_idx, header in enumerate(headers):
             score = data[header][i]
             cell = sheet.cell(row=i + 2, column=col_idx + 1)
 
             # Formater selon les exigences pour les colonnes spécifiques
-            if header == "FCP (s)" or header == "LCP (s)" or header == "TBT (ms)" or header == "Speed Index (s)":
+            if header in ["FCP (s)", "LCP (s)", "TBT (ms)", "Speed Index (s)"]:
                 cell.number_format = '0.0' if isinstance(score, float) and score % 1 != 0 else '0'
             elif header == "CLS":
                 cell.number_format = '0.00000' if isinstance(score, float) and score % 1 != 0 else '0'
 
-            # Appliquer la couleur de fond selon les scores si nécessaire
+            # Appliquer la couleur de fond selon les scores et device_type
             fill_color = None
             if "Score" in header:
                 if score >= 90:
@@ -409,7 +421,6 @@ def export_to_excel(data):
                 else:
                     fill_color = 'FF0000'  # Rouge
             else:
-                device_type = "mobile"  # ou "desktop", selon votre logique
                 fill_color = set_fill_color(header, score, device_type)
 
             # Appliquer le remplissage
@@ -449,6 +460,7 @@ def export_to_excel(data):
     full_path = os.path.join(script_directory, filename)
     workbook.save(full_path)
     print(colored(f"\nLes scores ont été exportés vers '{filename}'", "green"))
+
 
 # Fonction principale du programme
 def main():
