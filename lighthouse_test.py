@@ -359,7 +359,7 @@ def set_fill_color(header, score, device_type):
                 if score <= 0.1:
                     return '5ED050'  # Vert
                 elif score <= 0.25:
-                    return 'FFA500'  # Orange
+                    return 'FFF055'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
     return None
