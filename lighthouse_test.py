@@ -173,19 +173,22 @@ def test_urls_from_file():
 def get_lighthouse_scores(url, strategy):
     print(colored(f"\nAnalyse de {url} ({strategy})", "magenta"))
 
-    # Utilisez le chemin complet de l'exécutable Lighthouse
-    lighthouse_path = r'C:\Users\itali\AppData\Roaming\npm\lighthouse.cmd'
+    # Construire dynamiquement le chemin de l'exécutable Lighthouse
+    user_profile = os.getenv('USERPROFILE')
+    lighthouse_path = os.path.join(user_profile, r'AppData\Roaming\npm\lighthouse.cmd')
 
     if strategy == "mobile":
-        command = [lighthouse_path, url, 
-                   '--only-categories=performance,accessibility,best-practices,seo', 
-                   '--output=json', '--emulated-form-factor=mobile', '--quiet', '--chrome-flags=--headless']
+        command = [
+            lighthouse_path, url, 
+            '--only-categories=performance,accessibility,best-practices,seo', 
+            '--output=json', '--emulated-form-factor=mobile', '--quiet', '--chrome-flags=--headless'
+        ]
     else:
-        command = [lighthouse_path, url, 
-                   '--only-categories=performance,accessibility,best-practices,seo', 
-                   '--output=json', '--preset=desktop', '--quiet', '--chrome-flags=--headless']
-
-    print(f"Commande exécutée : {' '.join(command)}")  # Pour debug
+        command = [
+            lighthouse_path, url, 
+            '--only-categories=performance,accessibility,best-practices,seo', 
+            '--output=json', '--preset=desktop', '--quiet', '--chrome-flags=--headless'
+        ]
 
     progress_bar = tqdm(total=100, desc="Analyse en cours", bar_format="{l_bar}{bar} [Temps écoulé: {elapsed}, Temps restant: {remaining}]")
 
