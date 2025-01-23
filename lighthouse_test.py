@@ -4,6 +4,7 @@ import sys
 import signal
 import time
 import json
+import shutil
 from tqdm import tqdm
 from datetime import datetime
 from termcolor import colored
@@ -171,13 +172,20 @@ def test_urls_from_file():
 # Fonction pour exécuter Lighthouse et récupérer les scores pour une URL
 def get_lighthouse_scores(url, strategy):
     print(colored(f"\nAnalyse de {url} ({strategy})", "magenta"))
-    
+
+    # Utilisez le chemin complet de l'exécutable Lighthouse
+    lighthouse_path = r'C:\Users\itali\AppData\Roaming\npm\lighthouse.cmd'
+
     if strategy == "mobile":
-        command = ['lighthouse', url, '--only-categories=performance,accessibility,best-practices,seo', 
-                   '--output=json', '--emulated-form-factor=mobile', '--quiet', '--chrome-flags="--headless"']
+        command = [lighthouse_path, url, 
+                   '--only-categories=performance,accessibility,best-practices,seo', 
+                   '--output=json', '--emulated-form-factor=mobile', '--quiet', '--chrome-flags=--headless']
     else:
-        command = ['lighthouse', url, '--only-categories=performance,accessibility,best-practices,seo', 
-                   '--output=json', '--preset=desktop', '--quiet', '--chrome-flags="--headless"']
+        command = [lighthouse_path, url, 
+                   '--only-categories=performance,accessibility,best-practices,seo', 
+                   '--output=json', '--preset=desktop', '--quiet', '--chrome-flags=--headless']
+
+    print(f"Commande exécutée : {' '.join(command)}")  # Pour debug
 
     progress_bar = tqdm(total=100, desc="Analyse en cours", bar_format="{l_bar}{bar} [Temps écoulé: {elapsed}, Temps restant: {remaining}]")
 
@@ -189,7 +197,7 @@ def get_lighthouse_scores(url, strategy):
     thread = threading.Thread(target=update_progress_bar)
     thread.start()
 
-    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, encoding='utf-8')
 
     progress_bar.n = 100
     progress_bar.close()
@@ -198,8 +206,10 @@ def get_lighthouse_scores(url, strategy):
 
     if result.returncode != 0:
         print(colored(f"Erreur lors de l'analyse de {url}", "red"))
+        print(f"STDOUT : {result.stdout}")
+        print(f"STDERR : {result.stderr}")
         return None
-    return result.stdout  # Retourner la sortie JSON
+    return result.stdout  # Retourne la sortie JSON
 
 # Fonction pour extraire et afficher les scores sous forme de tableau
 def display_scores(data_results):
