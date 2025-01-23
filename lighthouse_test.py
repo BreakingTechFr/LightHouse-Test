@@ -147,14 +147,7 @@ def test_single_url():
 # Fonction pour tester un fichier .txt contenant des URLs
 def test_urls_from_file():
     print(colored("Glissez-déposez ici un fichier .txt contenant les URL :", "yellow"))  # Changement en jaune
-    file_path = input("Chemin du fichier : ").strip().strip('"').strip()  # Retirer les guillemets et espaces superflus
-
-    # Vérifier si le fichier existe et supprimer les espaces en fin de chemin
-    file_path = file_path.rstrip()
-
-    if not os.path.isfile(file_path):
-        print(colored("Le fichier spécifié n'existe pas ou le chemin est incorrect.", "red"))
-        sys.exit(1)
+    file_path = input("Chemin du fichier : ").strip()
 
     # Remplacer les séquences \ avant des espaces par de simples espaces
     file_path = file_path.replace("\\ ", " ")
@@ -478,7 +471,7 @@ def export_to_excel(data):
     script_directory = os.path.dirname(os.path.abspath(__file__))
     full_path = os.path.join(script_directory, filename)
     workbook.save(full_path)
-    print(colored(f"\nLes scores ont été exportés vers '{filename}'", "green"))
+    print(colored(f"\nLes scores ont été exportés vers : {full_path}", "green"))
 
 # Fonction principale du programme
 def main():
