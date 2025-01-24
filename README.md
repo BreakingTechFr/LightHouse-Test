@@ -61,7 +61,7 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 
 - Affichage des résultats avec un code couleur pour une interprétation rapide :
   - 🟢 **Vert** : Bon résultat.
-  - 🟠 **Orange** : Moyen.
+  - 🟡 **Orange** : Moyen.
   - 🔴 **Rouge** : Doit être amélioré.
  
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
