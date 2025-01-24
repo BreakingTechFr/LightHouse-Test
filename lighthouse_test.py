@@ -5,6 +5,7 @@ import signal
 import time
 import json
 import shutil
+import platform
 from tqdm import tqdm
 from datetime import datetime
 from termcolor import colored
@@ -484,7 +485,24 @@ def export_to_excel(data):
     script_directory = os.path.dirname(os.path.abspath(__file__))
     full_path = os.path.join(script_directory, filename)
     workbook.save(full_path)
-    print(colored(f"\nLes scores ont été exportés vers : {full_path}", "green"))
+
+    # Impression de l'URL cliquable
+    print(colored(f"\nLes scores ont été exportés vers :", "green"))
+    print(colored(f"{full_path}", "blue", attrs=["underline"]))
+
+    # Ouvrir automatiquement le fichier selon le système d'exploitation
+    os_name = platform.system()
+    try:
+        if os_name == "Windows":
+            subprocess.run(["start", full_path], shell=True)
+        elif os_name == "Darwin":  # macOS est identifié comme 'Darwin'
+            subprocess.run(["open", full_path])
+        elif os_name == "Linux":
+            subprocess.run(["xdg-open", full_path])
+        else:
+            print(colored("Ouverture automatique non prise en charge sur ce système d'exploitation.", "yellow"))
+    except Exception as e:
+        print(colored(f"Erreur lors de l'ouverture du fichier : {e}", "red"))
 
 # Fonction principale du programme
 def main():
