@@ -146,11 +146,24 @@ def test_single_url():
 
 # Fonction pour tester un fichier .txt contenant des URLs
 def test_urls_from_file():
-    print(colored("Glissez-déposez ici un fichier .txt contenant les URL :", "yellow"))  # Changement en jaune
+    print(colored("Glissez-déposez ici un fichier .txt contenant les URL :", "yellow"))
     file_path = input("Chemin du fichier : ").strip()
+
+    # Retirer les guillemets doubles ou simples entourant le chemin
+    if file_path.startswith('"') and file_path.endswith('"'):
+        file_path = file_path[1:-1]
+    elif file_path.startswith("'") and file_path.endswith("'"):
+        file_path = file_path[1:-1]
+
+    # Supprimer les espaces après l'extension
+    file_path = file_path.rstrip()
 
     # Remplacer les séquences \ avant des espaces par de simples espaces
     file_path = file_path.replace("\\ ", " ")
+
+    if not file_path.lower().endswith('.txt'):
+        print(colored("Le fichier doit être un fichier .txt.", "red"))
+        sys.exit(1)
 
     if not os.path.isfile(file_path):
         print(colored("Le fichier spécifié n'existe pas.", "red"))
