@@ -297,7 +297,7 @@ def display_scores(data_results):
             print(f"| {colored('First Contentful Paint (FCP)', 'white'):<40} | {colored(f'{fcp_mobile:.1f}s' if fcp_mobile % 1 else f'{int(fcp_mobile)}s', 'green' if fcp_mobile <= 1.82 else 'yellow' if fcp_mobile <= 3.01 else 'red'):^30} | {colored(f'{fcp_desktop:.1f}s' if fcp_desktop % 1 else f'{int(fcp_desktop)}s', 'green' if fcp_desktop <= 2.31 else 'red'):^30} |")
             print(f"| {colored('Largest Contentful Paint (LCP)', 'white'):<40} | {colored(f'{lcp_mobile:.1f}s' if lcp_mobile % 1 else f'{int(lcp_mobile)}s', 'green' if lcp_mobile <= 2.52 else 'yellow' if lcp_mobile <= 4.01 else 'red'):^30} | {colored(f'{lcp_desktop:.1f}s' if lcp_desktop % 1 else f'{int(lcp_desktop)}s', 'green' if lcp_desktop <= 1.21 else 'yellow' if lcp_desktop <= 2.41 else 'red'):^30} |")
             print(f"| {colored('Total Blocking Time (TBT)', 'white'):<40} | {colored(f'{tbt_mobile:.1f}ms' if tbt_mobile % 1 else f'{int(tbt_mobile)}ms', 'green' if tbt_mobile <= 200 else 'yellow' if tbt_mobile <= 600 else 'red'):^30} | {colored(f'{tbt_desktop:.1f}ms' if tbt_desktop % 1 else f'{int(tbt_desktop)}ms', 'green' if tbt_desktop <= 150 else 'yellow' if tbt_desktop <= 350 else 'red'):^30} |")
-            print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(format_cls(cls_mobile), 'green' if cls_mobile <= 0.1 else 'orange' if cls_mobile <= 0.25 else 'red'):^30} | {colored(format_cls(cls_desktop), 'green' if cls_desktop <= 0.1 else 'orange' if cls_desktop <= 0.25 else 'red'):^30} |")
+            print(f"| {colored('Cumulative Layout Shift (CLS)', 'white'):<40} | {colored(format_cls(cls_mobile), 'green' if cls_mobile <= 0.1 else 'yellow' if cls_mobile <= 0.25 else 'red'):^30} | {colored(format_cls(cls_desktop), 'green' if cls_desktop <= 0.1 else 'yellow' if cls_desktop <= 0.25 else 'red'):^30} |")
             print(f"| {colored('Speed Index', 'white'):<40} | {colored(f'{speed_index_mobile:.1f}s' if speed_index_mobile % 1 else f'{int(speed_index_mobile)}s', 'green' if speed_index_mobile <= 3.42 else 'yellow' if speed_index_mobile <= 5.82 else 'red'):^30} | {colored(f'{speed_index_desktop:.1f}s' if speed_index_desktop % 1 else f'{int(speed_index_desktop)}s', 'green' if speed_index_desktop <= 1.32 else 'yellow' if speed_index_desktop <= 2.31 else 'red'):^30} |")
             print(colored("+" + "-"*81 + "+", "cyan"))
 
@@ -350,7 +350,7 @@ def set_fill_color(header, score, device_type):
                 if score <= 0.1:
                     return '5ED050'  # Vert
                 elif score <= 0.25:
-                    return 'FFA500'  # Orange
+                    return 'FFA500'  # Jaune
                 else:
                     return 'FF0000'  # Rouge
         elif device_type == "desktop":
