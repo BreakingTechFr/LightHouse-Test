@@ -57,6 +57,8 @@ Ouvrez le fichier .xlsx pour revoir ultérieurement les scores obtenus
 
 ![Capture d’écran 2024-10-25 à 17 55 30](https://github.com/user-attachments/assets/6a96badf-09a7-42ff-bac2-92f47c610ca3)
 
+Pour ceux qui veulent une version Docker de ce programme vous avez le lien ici : https://hub.docker.com/r/breakingtechfr/lighthouse-test
+
 ## Affichage des résultats
 
 - Affichage des résultats avec un code couleur pour une interprétation rapide :
